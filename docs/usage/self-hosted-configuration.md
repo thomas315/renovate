@@ -1159,6 +1159,12 @@ For example: `/foo/bar.json`.
 If the value `s3` is used in [`reportType`](#reporttype), then use a S3 URI.
 For example: `s3://bucket-name/key-name`.
 
+You can also provide AWS credentials directly in the S3 URL, e.g.:
+
+- `s3://ACCESS_KEY:SECRET_KEY@bucket-name/key-name`
+
+If credentials are present in the URL, they will be used for authentication instead of environment variables.
+
 ## reportType
 
 Defines how the report is exposed:
@@ -1190,6 +1196,14 @@ JSON files will be stored inside the `cacheDir` beside the existing file-based p
 ```ts title="Set repositoryCacheType to an S3 URI to enable S3 backed repository cache"
 {
   repositoryCacheType: 's3://bucket-name';
+}
+```
+
+You can also provide AWS credentials directly in the S3 URI:
+
+```ts title="Set repositoryCacheType to an S3 URI with credentials"
+{
+  repositoryCacheType: 's3://ACCESS_KEY:SECRET_KEY@bucket-name';
 }
 ```
 

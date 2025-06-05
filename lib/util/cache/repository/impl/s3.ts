@@ -21,10 +21,15 @@ export class RepoCacheS3 extends RepoCacheBase {
 
   constructor(repository: string, fingerprint: string, url: string) {
     super(repository, fingerprint);
-    const { Bucket, Key } = parseS3Url(url)!;
+    const { Bucket, Key, accessKeyId, secretAccessKey } = parseS3Url(url)!;
     this.dir = this.getCacheFolder(Key);
     this.bucket = Bucket;
-    this.s3Client = getS3Client();
+    this.s3Client = getS3Client(
+      undefined,
+      undefined,
+      accessKeyId,
+      secretAccessKey,
+    );
   }
 
   async read(): Promise<string | null> {
