@@ -1,5 +1,6 @@
 import type { RepositoryCacheType } from '../../../../config/types';
 import { logger } from '../../../../logger';
+import { sanitizeUrls } from '../../../../logger/utils';
 import type { RepoCache } from '../types';
 import { RepoCacheLocal } from './local';
 import { RepoCacheS3 } from './s3';
@@ -18,7 +19,7 @@ export class CacheFactory {
         return new RepoCacheS3(repository, repoFingerprint, cacheType);
       default:
         logger.warn(
-          { cacheType },
+          { cacheType: sanitizeUrls(cacheType) },
           `Repository cache type not supported using type "local" instead`,
         );
         return new RepoCacheLocal(repository, repoFingerprint);
